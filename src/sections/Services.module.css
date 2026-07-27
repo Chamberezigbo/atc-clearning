@@ -1,0 +1,45 @@
+.eyebrow {
+  color: var(--color-lavender-deep);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: var(--space-xs);
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.card {
+  background: var(--color-lavender-tint);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+
+.cardTitle {
+  color: var(--color-lavender-deep);
+  font-size: 1.15rem;
+  margin-bottom: var(--space-xs);
+}
+
+.cardBody {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}

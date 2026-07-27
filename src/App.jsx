@@ -1,9 +1,19 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import TestimonialsPage from './pages/TestimonialsPage'
+
 function App() {
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>All Time Cleaning</h1>
-      <p>Phase 0 scaffold — homepage design comes in Phase 3.</p>
-    </main>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/testimonials" element={<TestimonialsPage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   )
 }
 

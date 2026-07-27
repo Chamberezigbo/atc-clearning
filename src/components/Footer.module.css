@@ -1,0 +1,36 @@
+.footer {
+  background: var(--color-black);
+  color: var(--color-white);
+  margin-top: var(--space-xl);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-block: var(--space-lg);
+  text-align: center;
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1); /* renders the lavender SVG logo in white on the dark footer */
+}
+
+.links {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.links a:hover {
+  color: var(--color-lavender-soft);
+}
+
+.copyright {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
