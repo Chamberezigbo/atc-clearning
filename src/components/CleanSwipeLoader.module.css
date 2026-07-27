@@ -1,0 +1,142 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  gap: var(--space-md);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--color-lavender-tint), var(--color-white));
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.overlayExiting {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.scene {
+  position: relative;
+  width: min(34rem, 88vw);
+  height: 8rem;
+  overflow: hidden;
+  border-bottom: 3px solid var(--color-border);
+}
+
+.dust,
+.cleanTrail {
+  position: absolute;
+  inset: 0;
+}
+
+.dust {
+  opacity: 0.55;
+  animation: clearDust 2.2s ease-in-out infinite;
+}
+
+.dust span {
+  position: absolute;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--color-lavender-deep);
+}
+
+.dust span:nth-child(1) { left: 64%; top: 60%; }
+.dust span:nth-child(2) { left: 73%; top: 33%; width: 0.25rem; height: 0.25rem; }
+.dust span:nth-child(3) { left: 85%; top: 70%; width: 0.3rem; height: 0.3rem; }
+.dust span:nth-child(4) { left: 92%; top: 45%; width: 0.2rem; height: 0.2rem; }
+
+.cleanTrail {
+  right: auto;
+  width: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), var(--color-white));
+  animation: revealClean 2.2s ease-in-out infinite;
+}
+
+.cloth {
+  position: absolute;
+  left: -5.5rem;
+  bottom: 0.5rem;
+  width: 5.4rem;
+  height: 3.6rem;
+  border-radius: 0.7rem 1.5rem 0.8rem 0.75rem;
+  background: linear-gradient(135deg, #ecdfff, var(--color-lavender-deep));
+  box-shadow: 0 0.45rem 0.8rem rgba(141, 107, 208, 0.2);
+  transform: skewX(-12deg);
+  animation: sweep 2.2s cubic-bezier(0.5, 0, 0.4, 1) infinite;
+}
+
+.clothFold {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.65rem;
+  width: 2.8rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.sparkle {
+  position: absolute;
+  color: var(--color-lavender-deep);
+  opacity: 0;
+  animation: twinkle 2.2s ease-in-out infinite;
+}
+
+.sparkleOne { left: 42%; top: 25%; animation-delay: 0.7s; }
+.sparkleTwo { left: 61%; top: 56%; font-size: 1.2rem; animation-delay: 0.95s; }
+.sparkleThree { left: 78%; top: 18%; font-size: 0.85rem; animation-delay: 1.15s; }
+
+.message {
+  color: var(--color-text);
+  font-weight: 600;
+  text-align: center;
+}
+
+.ellipsis {
+  display: inline-block;
+  width: 1.25rem;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes sweep {
+  0%, 12% { transform: translateX(0) skewX(-12deg); }
+  72%, 100% { transform: translateX(calc(min(34rem, 88vw) + 6rem)) skewX(-12deg); }
+}
+
+@keyframes revealClean {
+  0%, 12% { width: 0; }
+  72%, 100% { width: 100%; }
+}
+
+@keyframes clearDust {
+  0%, 38% { opacity: 0.55; }
+  72%, 100% { opacity: 0; }
+}
+
+@keyframes twinkle {
+  0%, 38%, 100% { opacity: 0; transform: scale(0.6); }
+  52%, 72% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes dots {
+  to { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dust,
+  .cleanTrail,
+  .cloth,
+  .sparkle,
+  .ellipsis {
+    animation: none;
+  }
+
+  .cleanTrail { width: 100%; }
+  .cloth { left: 45%; }
+  .dust { opacity: 0; }
+  .sparkle { opacity: 1; }
+}
