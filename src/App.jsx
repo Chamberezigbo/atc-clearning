@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import CleanSwipeLoader from "./components/CleanSwipeLoader";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import PublicLayout from "./layouts/PublicLayout";
+import AdminLayout from "./layouts/AdminLayout";
 import Home from "./pages/Home";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import AdminLogin from "./pages/AdminLogin";
@@ -31,21 +31,24 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         {isLoading && <CleanSwipeLoader isExiting={isExiting} />}
-        <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/testimonials" element={<TestimonialsPage />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
+          </Route>
+
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
-        <Footer />
       </AuthProvider>
     </BrowserRouter>
   );

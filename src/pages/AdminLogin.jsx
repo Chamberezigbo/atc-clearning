@@ -27,7 +27,7 @@ function AdminLogin() {
   }
 
   return (
-    <div className={`container section ${styles.wrap}`}>
+    <div className={styles.wrap}>
       <h1 className={styles.heading}>Admin Login</h1>
       <form
         className={styles.form}
