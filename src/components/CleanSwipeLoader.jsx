@@ -1,9 +1,9 @@
-import styles from './CleanSwipeLoader.module.css'
+import styles from "./CleanSwipeLoader.module.css";
 
 function CleanSwipeLoader({ isExiting }) {
   return (
     <div
-      className={`${styles.overlay} ${isExiting ? styles.overlayExiting : ''}`}
+      className={`${styles.overlay} ${isExiting ? styles.overlayExiting : ""}`}
       role="status"
       aria-live="polite"
       aria-label="Making things shine"
@@ -23,10 +23,19 @@ function CleanSwipeLoader({ isExiting }) {
         <div className={styles.cloth}>
           <span className={styles.clothFold} />
         </div>
+        <div className={styles.bubbles}>
+          <span className={styles.bubble} />
+          <span className={styles.bubble} />
+          <span className={styles.bubble} />
+          <span className={styles.bubble} />
+          <span className={styles.bubble} />
+        </div>
       </div>
-      <p className={styles.message}>Making things shine<span className={styles.ellipsis}>...</span></p>
+      <p className={styles.message}>
+        Making things shine<span className={styles.ellipsis}>...</span>
+      </p>
     </div>
-  )
+  );
 }
 
-export default CleanSwipeLoader
+export default CleanSwipeLoader;

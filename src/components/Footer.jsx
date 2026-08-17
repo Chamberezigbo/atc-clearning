@@ -1,10 +1,14 @@
-import styles from './Footer.module.css'
+import styles from "./Footer.module.css";
 
 function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
-        <img src="/logo/atc-logo.svg" alt="All Time Cleaning" className={styles.logo} />
+        <img
+          src="/logo/atclean-logo.svg"
+          alt="ATClean"
+          className={styles.logo}
+        />
 
         <nav className={styles.links}>
           <a href="/#services">Services</a>
@@ -14,11 +18,11 @@ function Footer() {
         </nav>
 
         <p className={styles.copyright}>
-          &copy; {new Date().getFullYear()} All Time Cleaning. All rights reserved.
+          &copy; {new Date().getFullYear()} ATClean. All rights reserved.
         </p>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

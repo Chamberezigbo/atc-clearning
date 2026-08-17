@@ -31,7 +31,7 @@ function Hero() {
   return (
     <section className={`container ${styles.hero}`}>
       <div>
-        <p className={styles.eyebrow}>All Time Cleaning</p>
+        <p className={styles.eyebrow}>ATClean</p>
         <h1 className={styles.heading}>A calmer home starts here</h1>
         <p className={styles.subheading}>
           Professional, trustworthy cleaning for homes and offices — so you can
