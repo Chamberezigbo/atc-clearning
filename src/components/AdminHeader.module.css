@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: var(--space-md);
   padding-block: var(--space-sm);
 }
@@ -96,8 +97,58 @@
   border-color: rgba(255, 255, 255, 0.5);
 }
 
+.menuToggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+.logoutButtonMobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .nav {
+  .menuToggle {
+    display: block;
+    order: 1; /* sits right after the logo/badge, before the nav panel */
+  }
+
+  .logoutButtonDesktop {
     display: none;
+  }
+
+  .nav {
+    order: 2;
+    flex-basis: 100%; /* forces it onto its own row, below the logo/toggle row */
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+
+    /* collapsed by default */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding-top: 0;
+    transition:
+      max-height 0.25s ease,
+      opacity 0.2s ease,
+      padding-top 0.25s ease;
+  }
+
+  .navOpen {
+    max-height: 400px;
+    opacity: 1;
+    padding-top: var(--space-sm);
+  }
+
+  .logoutButtonMobile {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }
