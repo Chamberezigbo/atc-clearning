@@ -3,8 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CleanSwipeLoader from "./components/CleanSwipeLoader";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
 import TestimonialsPage from "./pages/TestimonialsPage";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,13 +29,24 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLoading && <CleanSwipeLoader isExiting={isExiting} />}
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/testimonials" element={<TestimonialsPage />} />
-      </Routes>
-      <Footer />
+      <AuthProvider>
+        {isLoading && <CleanSwipeLoader isExiting={isExiting} />}
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
