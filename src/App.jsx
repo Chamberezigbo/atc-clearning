@@ -13,6 +13,8 @@ import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminLeads from "./pages/AdminLeads";
 import AdminHeroSlides from "./pages/AdminHeroSlides";
 import AdminServices from "./pages/AdminServices";
+import AdminBookings from "./pages/AdminBookings";
+import AdminInvoices from "./pages/AdminInvoices";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -80,6 +82,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AdminServices />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/bookings"
+              element={
+                <ProtectedRoute>
+                  <AdminBookings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/invoices"
+              element={
+                <ProtectedRoute>
+                  <AdminInvoices />
                 </ProtectedRoute>
               }
             />

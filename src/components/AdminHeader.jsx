@@ -89,9 +89,28 @@ function AdminHeader() {
               >
                 Leads
               </NavLink>
-              <span className={styles.navLinkSoon}>
-                Invoices <span className={styles.soonBadge}>Soon</span>
-              </span>
+              <NavLink
+                to="/admin/bookings"
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                Bookings
+              </NavLink>
+              <NavLink
+                to="/admin/invoices"
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                Invoices
+              </NavLink>
 
               <button
                 className={`${styles.logoutButton} ${styles.logoutButtonMobile}`}

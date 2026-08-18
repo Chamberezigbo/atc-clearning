@@ -1,0 +1,81 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.total {
+  font-weight: 700;
+  color: var(--color-lavender-deep);
+  font-size: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.statusSelect {
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.invoiceButton {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--color-lavender-deep);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.details {
+  margin-top: var(--space-sm);
+}
+
+.details summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-lavender-deep);
+  font-weight: 600;
+}
+
+.lineItems {
+  margin-top: var(--space-xs);
+  font-size: 0.9rem;
+}
+
+.lineItems li {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.2rem;
+  border-bottom: 1px dashed var(--color-border);
+}
