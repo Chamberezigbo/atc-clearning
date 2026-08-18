@@ -1,13 +1,10 @@
+import { useState } from "react";
+import WhatsAppLeadModal from "../components/WhatsAppLeadModal";
 import styles from "./ContactCta.module.css";
 
-// TEMPORARY: direct wa.me link. Phase 5 replaces this with a form that
-// collects name/email/phone first, then redirects only after a successful submit.
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "2340000000000";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hi ATClean, I'd like to book a clean!",
-)}`;
-
 function ContactCta() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="contact" className={`section ${styles.section}`}>
       <div className="container">
@@ -15,15 +12,14 @@ function ContactCta() {
         <p className={styles.body}>
           Message us on WhatsApp and we'll take care of the rest.
         </p>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.button}
-        >
+        <button className={styles.button} onClick={() => setIsModalOpen(true)}>
           Chat on WhatsApp
-        </a>
+        </button>
       </div>
+
+      {isModalOpen && (
+        <WhatsAppLeadModal onClose={() => setIsModalOpen(false)} />
+      )}
     </section>
   );
 }

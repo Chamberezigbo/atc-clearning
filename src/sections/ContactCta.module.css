@@ -20,6 +20,8 @@
   background: var(--color-white);
   color: var(--color-lavender-deep);
   font-weight: 700;
+  font-size: 1rem;
+  border: none;
   padding: 0.85rem 2rem;
   border-radius: var(--radius);
   transition: transform 0.2s ease;
