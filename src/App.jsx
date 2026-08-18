@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminTestimonials from "./pages/AdminTestimonials";
+import AdminLeads from "./pages/AdminLeads";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +46,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/testimonials"
+              element={
+                <ProtectedRoute>
+                  <AdminTestimonials />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/leads"
+              element={
+                <ProtectedRoute>
+                  <AdminLeads />
                 </ProtectedRoute>
               }
             />

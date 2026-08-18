@@ -45,12 +45,28 @@ function AdminHeader() {
               >
                 News
               </NavLink>
-              <span className={styles.navLinkSoon}>
-                Testimonials <span className={styles.soonBadge}>Soon</span>
-              </span>
-              <span className={styles.navLinkSoon}>
-                Leads <span className={styles.soonBadge}>Soon</span>
-              </span>
+              <NavLink
+                to="/admin/testimonials"
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                Testimonials
+              </NavLink>
+              <NavLink
+                to="/admin/leads"
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                Leads
+              </NavLink>
               <span className={styles.navLinkSoon}>
                 Invoices <span className={styles.soonBadge}>Soon</span>
               </span>
