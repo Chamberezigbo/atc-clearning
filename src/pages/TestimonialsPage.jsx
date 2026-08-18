@@ -5,14 +5,11 @@ import {
   fetchApprovedTestimonials,
   submitTestimonial,
 } from "../api/testimonials";
-import { uploadTestimonialPhoto } from "../api/upload";
 import styles from "./TestimonialsPage.module.css";
 
 function TestimonialsPage() {
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [photoUrl, setPhotoUrl] = useState("");
-  const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [highlightForm, setHighlightForm] = useState(false);
@@ -46,34 +43,15 @@ function TestimonialsPage() {
     }
   }, [hash, loading]);
 
-  async function handlePhotoChange(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setSubmitError("");
-    setUploadingPhoto(true);
-    try {
-      const { url } = await uploadTestimonialPhoto(file);
-      setPhotoUrl(url);
-    } catch (err) {
-      setSubmitError(err.message);
-    } finally {
-      setUploadingPhoto(false);
-      e.target.value = "";
-    }
-  }
-
   async function onSubmit(formData) {
     setSubmitError("");
     try {
       await submitTestimonial({
         authorName: formData.authorName,
         message: formData.message,
-        authorPhotoUrl: photoUrl || null,
       });
       setSubmitted(true);
       reset();
-      setPhotoUrl("");
     } catch (err) {
       setSubmitError(err.message);
     }
@@ -91,17 +69,9 @@ function TestimonialsPage() {
         <div className={styles.grid}>
           {testimonials.map((t) => (
             <blockquote key={t.id} className={styles.card}>
-              {t.authorPhotoUrl ? (
-                <img
-                  src={t.authorPhotoUrl}
-                  alt=""
-                  className={styles.avatar}
-                />
-              ) : (
-                <div className={styles.avatarPlaceholder}>
-                  {t.authorName.charAt(0).toUpperCase()}
-                </div>
-              )}
+              <div className={styles.avatarPlaceholder}>
+                {t.authorName.charAt(0).toUpperCase()}
+              </div>
               <div>
                 <p className={styles.message}>&ldquo;{t.message}&rdquo;</p>
                 <footer className={styles.name}>— {t.authorName}</footer>
@@ -149,19 +119,6 @@ function TestimonialsPage() {
               <p className={styles.fieldError}>Message is required</p>
             )}
 
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                disabled={uploadingPhoto}
-              />
-              {uploadingPhoto && <p>Uploading photo...</p>}
-              {photoUrl && !uploadingPhoto && (
-                <img src={photoUrl} alt="" className={styles.avatar} />
-              )}
-            </div>
-
             {submitError && (
               <p className={styles.fieldError}>{submitError}</p>
             )}
@@ -169,7 +126,7 @@ function TestimonialsPage() {
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={isSubmitting || uploadingPhoto}
+              disabled={isSubmitting}
             >
               Submit Testimonial
             </button>
