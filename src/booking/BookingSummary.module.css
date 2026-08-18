@@ -1,0 +1,83 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  margin-bottom: var(--space-md);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: var(--space-md);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding-block: 0.3rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.itemLabel {
+  color: var(--color-text);
+}
+
+.itemPrice {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-lavender-deep);
+  margin-bottom: var(--space-md);
+}
+
+.locationRow {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.continueButton {
+  width: 100%;
+  background: var(--color-lavender-deep);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+}

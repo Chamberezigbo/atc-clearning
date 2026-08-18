@@ -7,6 +7,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import Home from "./pages/Home";
 import TestimonialsPage from "./pages/TestimonialsPage";
+import BookingPage from "./pages/BookingPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTestimonials from "./pages/AdminTestimonials";
@@ -41,6 +42,7 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/booking" element={<BookingPage />} />
           </Route>
 
           <Route element={<AdminLayout />}>
