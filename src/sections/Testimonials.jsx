@@ -14,8 +14,8 @@ function Testimonials() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading || testimonials.length === 0) {
-    return null // nothing approved yet — hide rather than show an empty section
+  if (loading) {
+    return null // avoid a flash of the empty state while the fetch is in flight
   }
 
   return (
@@ -24,18 +24,26 @@ function Testimonials() {
         <p className={styles.eyebrow}>Testimonials</p>
         <h2 className={styles.heading}>What our clients say</h2>
 
-        <div className={styles.grid}>
-          {testimonials.map((t) => (
-            <blockquote key={t.id} className={styles.card}>
-              <p className={styles.message}>&ldquo;{t.message}&rdquo;</p>
-              <footer className={styles.name}>— {t.authorName}</footer>
-            </blockquote>
-          ))}
-        </div>
+        {testimonials.length > 0 ? (
+          <div className={styles.grid}>
+            {testimonials.map((t) => (
+              <blockquote key={t.id} className={styles.card}>
+                <p className={styles.message}>&ldquo;{t.message}&rdquo;</p>
+                <footer className={styles.name}>— {t.authorName}</footer>
+              </blockquote>
+            ))}
+          </div>
+        ) : (
+          <p className={styles.empty}>
+            Be the first to share your experience with ATClean.
+          </p>
+        )}
 
         <div className={styles.linkWrap}>
           <Link to="/testimonials" className={styles.link}>
-            Read more / share your experience →
+            {testimonials.length > 0
+              ? 'Read more / share your experience →'
+              : 'Share your experience →'}
           </Link>
         </div>
       </div>

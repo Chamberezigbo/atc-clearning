@@ -37,6 +37,11 @@
   font-size: 0.9rem;
 }
 
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
 .linkWrap {
   text-align: center;
   margin-top: var(--space-lg);
