@@ -39,11 +39,15 @@ function Testimonials() {
           </p>
         )}
 
-        <div className={styles.linkWrap}>
-          <Link to="/testimonials" className={styles.link}>
-            {testimonials.length > 0
-              ? 'Read more / share your experience →'
-              : 'Share your experience →'}
+        <div className={styles.actions}>
+          {testimonials.length > 0 && (
+            <Link to="/testimonials" className={styles.secondaryLink}>
+              Read all testimonials
+            </Link>
+          )}
+          {/* Deep-links straight to the form on the full page — no scrolling required */}
+          <Link to="/testimonials#submit-testimonial" className={styles.button}>
+            Share Your Experience
           </Link>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   fetchApprovedTestimonials,
@@ -14,6 +15,8 @@ function TestimonialsPage() {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [highlightForm, setHighlightForm] = useState(false);
+  const { hash } = useLocation();
 
   const {
     register,
@@ -28,6 +31,20 @@ function TestimonialsPage() {
       .catch(() => setTestimonials([]))
       .finally(() => setLoading(false));
   }, []);
+
+  // React Router doesn't scroll to #hash targets on its own when
+  // navigating between routes (only the browser's native behavior does
+  // that, which only fires on a full page load) — so we do it by hand.
+  useEffect(() => {
+    if (!hash) return;
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      setHighlightForm(true);
+      const timer = setTimeout(() => setHighlightForm(false), 1800);
+      return () => clearTimeout(timer);
+    }
+  }, [hash, loading]);
 
   async function handlePhotoChange(e) {
     const file = e.target.files[0];
@@ -94,7 +111,10 @@ function TestimonialsPage() {
         </div>
       )}
 
-      <div className={styles.formSection}>
+      <div
+        id="submit-testimonial"
+        className={`${styles.formSection} ${highlightForm ? styles.formSectionHighlight : ""}`}
+      >
         <h2 className={styles.formHeading}>Share Your Experience</h2>
         <p className={styles.formSubheading}>
           Submitted testimonials are reviewed before they appear publicly.
