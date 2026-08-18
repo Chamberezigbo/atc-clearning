@@ -30,10 +30,19 @@ function News() {
         <div className={styles.grid}>
           {posts.map((post) => (
             <article key={post.id} className={styles.card}>
-              <p className={styles.date}>
-                {new Date(post.createdAt).toLocaleDateString()}
-              </p>
-              <h3 className={styles.cardTitle}>{post.title}</h3>
+              {post.imageUrl && (
+                <img
+                  src={post.imageUrl}
+                  alt=""
+                  className={styles.cardImage}
+                />
+              )}
+              <div className={styles.cardBody}>
+                <p className={styles.date}>
+                  {new Date(post.createdAt).toLocaleDateString()}
+                </p>
+                <h3 className={styles.cardTitle}>{post.title}</h3>
+              </div>
             </article>
           ))}
         </div>

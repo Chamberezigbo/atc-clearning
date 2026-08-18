@@ -8,6 +8,7 @@ import {
   deleteNewsPost,
   toggleNewsPublish,
 } from "../api/news";
+import { uploadNewsImage } from "../api/upload";
 import styles from "./NewsManager.module.css";
 
 function NewsManager() {
@@ -16,6 +17,8 @@ function NewsManager() {
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null); // null = "create" mode
   const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const {
     register,
@@ -40,15 +43,34 @@ function NewsManager() {
     loadPosts();
   }, []);
 
+  async function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setError("");
+    setUploading(true);
+    try {
+      const { url } = await uploadNewsImage(token, file);
+      setImageUrl(url);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setUploading(false);
+      e.target.value = ""; // allow re-selecting the same file later
+    }
+  }
+
   async function onSubmit(formData) {
     setError("");
     try {
+      const payload = { ...formData, imageUrl };
       if (editingId) {
-        await updateNewsPost(token, editingId, formData);
+        await updateNewsPost(token, editingId, payload);
       } else {
-        await createNewsPost(token, formData);
+        await createNewsPost(token, payload);
       }
-      reset({ title: "", body: "", imageUrl: "" });
+      reset({ title: "", body: "" });
+      setImageUrl("");
       setEditingId(null);
       await loadPosts();
     } catch (err) {
@@ -58,16 +80,14 @@ function NewsManager() {
 
   function startEdit(post) {
     setEditingId(post.id);
-    reset({
-      title: post.title,
-      body: post.body,
-      imageUrl: post.imageUrl || "",
-    });
+    setImageUrl(post.imageUrl || "");
+    reset({ title: post.title, body: post.body });
   }
 
   function cancelEdit() {
     setEditingId(null);
-    reset({ title: "", body: "", imageUrl: "" });
+    setImageUrl("");
+    reset({ title: "", body: "" });
   }
 
   async function handleDelete(id) {
@@ -107,17 +127,36 @@ function NewsManager() {
           />
           {errors.body && <p className={styles.fieldError}>Body is required</p>}
 
-          <input
-            type="text"
-            placeholder="Image URL (optional)"
-            className={styles.input}
-            {...register("imageUrl")}
-          />
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              disabled={uploading}
+            />
+            {uploading && <p className={styles.postMeta}>Uploading...</p>}
+            {imageUrl && !uploading && (
+              <div className={styles.imagePreviewWrap}>
+                <img src={imageUrl} alt="" className={styles.imagePreview} />
+                <button
+                  type="button"
+                  className={styles.cancelButton}
+                  onClick={() => setImageUrl("")}
+                >
+                  Remove image
+                </button>
+              </div>
+            )}
+          </div>
 
           {error && <p className={styles.fieldError}>{error}</p>}
 
           <div className={styles.formActions}>
-            <button type="submit" className={styles.submitButton}>
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={uploading}
+            >
               {editingId ? "Save Changes" : "Create Draft"}
             </button>
             {editingId && (
@@ -142,7 +181,14 @@ function NewsManager() {
           <div className={styles.list}>
             {posts.map((post) => (
               <div key={post.id} className={styles.postRow}>
-                <div>
+                {post.imageUrl && (
+                  <img
+                    src={post.imageUrl}
+                    alt=""
+                    className={styles.postThumb}
+                  />
+                )}
+                <div className={styles.postInfo}>
                   <p className={styles.postTitle}>{post.title}</p>
                   <p className={styles.postMeta}>
                     {new Date(post.createdAt).toLocaleDateString()}
