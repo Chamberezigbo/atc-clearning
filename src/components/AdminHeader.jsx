@@ -46,6 +46,17 @@ function AdminHeader() {
                 News
               </NavLink>
               <NavLink
+                to="/admin/hero-slides"
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                Hero
+              </NavLink>
+              <NavLink
                 to="/admin/testimonials"
                 onClick={() => setIsMenuOpen(false)}
                 className={({ isActive }) =>

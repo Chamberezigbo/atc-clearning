@@ -1,0 +1,166 @@
+.wrap {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 900px) {
+  .wrap {
+    grid-template-columns: 340px 1fr;
+    align-items: start;
+  }
+}
+
+.formCard {
+  background: var(--color-lavender-tint);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.input,
+.textarea {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+}
+
+.textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.orderField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.orderField input {
+  width: 70px;
+}
+
+.fieldError {
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.submitButton {
+  background: var(--color-lavender-deep);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius);
+}
+
+.cancelButton {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius);
+}
+
+.imagePreviewWrap {
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.imagePreview {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.thumb {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  background: var(--color-lavender-tint);
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tip {
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  margin-top: 0.25rem;
+}
+
+.badgeActive {
+  background: #dcf5e5;
+  color: #1e7a41;
+}
+
+.badgeInactive {
+  background: #f0f0f0;
+  color: var(--color-text-muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.actions button {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+.deleteButton {
+  color: #c0392b;
+  border-color: #f0c4bd;
+}

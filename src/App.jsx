@@ -11,6 +11,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminLeads from "./pages/AdminLeads";
+import AdminHeroSlides from "./pages/AdminHeroSlides";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -62,6 +63,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AdminLeads />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/hero-slides"
+              element={
+                <ProtectedRoute>
+                  <AdminHeroSlides />
                 </ProtectedRoute>
               }
             />
