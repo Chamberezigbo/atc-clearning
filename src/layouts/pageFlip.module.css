@@ -1,0 +1,44 @@
+.stage {
+  /* A bigger perspective distance than the old logo-only version (400px) —
+     applying rotateY to a full-page-height element needs a longer distance
+     from the viewer or the top/bottom edges distort too sharply. */
+  perspective: 1800px;
+}
+
+.flip {
+  backface-visibility: hidden;
+  animation: pageFlipIn 380ms ease-out; /* plays once whenever this layout mounts */
+}
+
+.flipOut {
+  animation: pageFlipOut 320ms ease-in forwards;
+}
+
+@keyframes pageFlipIn {
+  from {
+    transform: rotateY(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pageFlipOut {
+  from {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip,
+  .flipOut {
+    animation: none;
+  }
+}
