@@ -25,3 +25,12 @@ export async function fetchAllLeads(token) {
   })
   return handleResponse(response)
 }
+
+export async function emailLead(token, id, { subject, message }) {
+  const response = await fetch(`${API_URL}/api/admin/leads/${id}/email`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ subject, message }),
+  })
+  return handleResponse(response)
+}
