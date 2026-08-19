@@ -1,22 +1,34 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import styles from "./AdminHeader.module.css";
 
-function AdminHeader({ onLogoClickHome }) {
+const FLIP_MS = 280;
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function AdminHeader() {
   const { isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const navigate = useNavigate();
 
-  // Logged out (e.g. on /admin/login) -> logo goes home (flipping the
-  // whole page, handled by AdminLayout). Logged in -> stays in the admin
-  // area, normal instant nav.
+  // Logged out (e.g. on /admin/login) -> logo goes home. Logged in -> stays
+  // in the admin area, same as before.
   const logoDestination = isAuthenticated ? "/admin" : "/";
 
   function handleLogoClick(e) {
     if (isAuthenticated) return; // normal internal admin nav, no flip
 
     e.preventDefault();
-    onLogoClickHome?.();
+    if (prefersReducedMotion()) {
+      navigate(logoDestination);
+      return;
+    }
+    setIsFlipping(true);
+    setTimeout(() => navigate(logoDestination), FLIP_MS);
   }
 
   return (
@@ -26,7 +38,7 @@ function AdminHeader({ onLogoClickHome }) {
           <img
             src="/logo/atclean-logo.svg"
             alt="ATClean"
-            className={styles.logo}
+            className={`${styles.logo} ${isFlipping ? styles.logoFlipOut : ""}`}
           />
           <span className={styles.badge}>Admin</span>
         </Link>

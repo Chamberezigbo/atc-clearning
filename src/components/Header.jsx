@@ -1,12 +1,19 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const ADMIN_TAP_COUNT = 3;
 const ADMIN_TAP_WINDOW_MS = 800;
+const FLIP_MS = 280;
 
-function Header({ onAdminTripleTap }) {
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const navigate = useNavigate();
   const tapCountRef = useRef(0);
   const tapResetTimerRef = useRef(null);
 
@@ -17,7 +24,13 @@ function Header({ onAdminTripleTap }) {
       e.preventDefault(); // skip the normal "go home" navigation this time
       clearTimeout(tapResetTimerRef.current);
       tapCountRef.current = 0;
-      onAdminTripleTap?.();
+
+      if (prefersReducedMotion()) {
+        navigate("/admin/login");
+      } else {
+        setIsFlipping(true);
+        setTimeout(() => navigate("/admin/login"), FLIP_MS);
+      }
       return;
     }
 
@@ -36,7 +49,7 @@ function Header({ onAdminTripleTap }) {
           <img
             src="/logo/atclean-logo.svg"
             alt="ATClean"
-            className={styles.logo}
+            className={`${styles.logo} ${isFlipping ? styles.logoFlipOut : ""}`}
           />
         </Link>
 
