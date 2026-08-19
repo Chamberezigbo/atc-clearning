@@ -16,6 +16,7 @@ import AdminHeroSlides from "./pages/AdminHeroSlides";
 import AdminServices from "./pages/AdminServices";
 import AdminBookings from "./pages/AdminBookings";
 import AdminInvoices from "./pages/AdminInvoices";
+import AdminSettings from "./pages/AdminSettings";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -100,6 +101,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AdminInvoices />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <ProtectedRoute>
+                  <AdminSettings />
                 </ProtectedRoute>
               }
             />

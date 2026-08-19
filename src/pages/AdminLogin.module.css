@@ -49,3 +49,52 @@
 .submitButton:hover {
   background: var(--color-lavender-hover);
 }
+
+.forgotLink {
+  display: block;
+  margin: var(--space-sm) auto 0;
+  background: transparent;
+  border: none;
+  color: var(--color-lavender-deep);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+.recoveryForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding: var(--space-sm);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+}
+
+.recoveryHint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.successMessage {
+  color: #1e7a41;
+  background: #dcf5e5;
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.recoveryButton {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 0.6rem;
+  border-radius: var(--radius);
+}
+
+.recoveryButton:disabled {
+  opacity: 0.5;
+}

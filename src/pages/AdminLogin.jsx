@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { loginRequest } from "../api/auth";
+import { loginRequest, recoverPasswordRequest } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 import styles from "./AdminLogin.module.css";
 
@@ -15,6 +15,12 @@ function AdminLogin() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const [showRecovery, setShowRecovery] = useState(false);
+  const [recoverySecret, setRecoverySecret] = useState("");
+  const [recoveryError, setRecoveryError] = useState("");
+  const [recoverySuccess, setRecoverySuccess] = useState(false);
+  const [recoverySubmitting, setRecoverySubmitting] = useState(false);
+
   async function onSubmit(data) {
     setServerError("");
     try {
@@ -23,6 +29,22 @@ function AdminLogin() {
       navigate("/admin");
     } catch (err) {
       setServerError(err.message);
+    }
+  }
+
+  async function handleRecoverySubmit(e) {
+    e.preventDefault();
+    setRecoveryError("");
+    setRecoverySuccess(false);
+    setRecoverySubmitting(true);
+    try {
+      await recoverPasswordRequest(recoverySecret);
+      setRecoverySuccess(true);
+      setRecoverySecret("");
+    } catch (err) {
+      setRecoveryError(err.message);
+    } finally {
+      setRecoverySubmitting(false);
     }
   }
 
@@ -58,6 +80,45 @@ function AdminLogin() {
           Log In
         </button>
       </form>
+
+      <button
+        type="button"
+        className={styles.forgotLink}
+        onClick={() => setShowRecovery((v) => !v)}
+      >
+        Forgot password?
+      </button>
+
+      {showRecovery && (
+        <form className={styles.recoveryForm} onSubmit={handleRecoverySubmit}>
+          <p className={styles.recoveryHint}>
+            Enter the recovery secret to reset your password back to the
+            server's configured seed password.
+          </p>
+          <input
+            type="password"
+            placeholder="Recovery secret"
+            className={styles.input}
+            value={recoverySecret}
+            onChange={(e) => setRecoverySecret(e.target.value)}
+          />
+
+          {recoveryError && <p className={styles.fieldError}>{recoveryError}</p>}
+          {recoverySuccess && (
+            <p className={styles.successMessage}>
+              Password reset. Log in with the seed password.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className={styles.recoveryButton}
+            disabled={recoverySubmitting || !recoverySecret}
+          >
+            Reset Password
+          </button>
+        </form>
+      )}
     </div>
   );
 }
