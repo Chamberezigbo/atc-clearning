@@ -10,7 +10,10 @@ import {
 } from "../api/invoices";
 import { updateBookingStatus } from "../api/bookings";
 import { formatNaira } from "../utils/currency";
+import { buildWhatsAppShareUrl } from "../utils/whatsapp";
 import styles from "./InvoiceManager.module.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const emptyLineItem = { description: "", quantity: 1, unitPrice: "" };
 
@@ -98,6 +101,14 @@ function InvoiceManager() {
     } catch (err) {
       setActionMessage(err.message);
     }
+  }
+
+  function handleShareWhatsApp(invoice) {
+    const shareUrl = `${API_URL}/api/invoices/${invoice.id}/pdf`;
+    const message = `Hi ${invoice.clientName}, here's your ATClean invoice for ${formatNaira(
+      invoice.totalAmount,
+    )}:\n${shareUrl}`;
+    window.open(buildWhatsAppShareUrl(message), "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -201,6 +212,7 @@ function InvoiceManager() {
                 <div className={styles.rowActions}>
                   <button onClick={() => handleDownload(invoice.id)}>Download PDF</button>
                   <button onClick={() => handleSendEmail(invoice.id)}>Send Email</button>
+                  <button onClick={() => handleShareWhatsApp(invoice)}>Send via WhatsApp</button>
                 </div>
               </div>
             ))}
