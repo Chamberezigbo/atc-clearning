@@ -131,7 +131,11 @@
   }
 
   .navOpen {
-    max-height: 400px;
+    /* Viewport-relative + its own scroll, not a fixed px guess — the
+       admin header's identical fixed-400px version silently clipped its
+       Log Out button once enough nav items were added over time. */
+    max-height: 80vh;
+    overflow-y: auto;
     opacity: 1;
     padding-top: var(--space-sm);
   }

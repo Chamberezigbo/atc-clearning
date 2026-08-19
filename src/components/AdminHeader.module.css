@@ -176,7 +176,13 @@
   }
 
   .navOpen {
-    max-height: 400px;
+    /* Was a fixed 400px, sized for far fewer nav items — as more admin
+       sections got added, the trailing items (including Log Out) started
+       getting silently clipped by overflow: hidden with no way to reach
+       them. Viewport-relative cap + its own scroll means this can't
+       happen again no matter how many sections get added later. */
+    max-height: 80vh;
+    overflow-y: auto;
     opacity: 1;
     padding-top: var(--space-sm);
   }
