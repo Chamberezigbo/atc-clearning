@@ -11,9 +11,8 @@ import {
 import { updateBookingStatus } from "../api/bookings";
 import { formatNaira } from "../utils/currency";
 import { buildWhatsAppShareUrl } from "../utils/whatsapp";
+import { API_URL } from "../utils/apiUrl";
 import styles from "./InvoiceManager.module.css";
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 const emptyLineItem = { description: "", quantity: 1, unitPrice: "" };
 
